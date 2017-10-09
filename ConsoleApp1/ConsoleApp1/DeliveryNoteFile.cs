@@ -6,20 +6,20 @@ using System.Threading.Tasks;
 
 namespace ReadFlatFiles
 {
-    class InvoiceInfo
+    class DeliveryNoteFile
     {
         public Supplier supplier { get; set; }
         public Header header { get; set; }
         public List<Position> positions { get; set; }
-        public VAT vat { get; set; }
-        public int MyProperty { get; set; }
+        public VATTable vat { get; set; }
+        
 
-        public InvoiceInfo()
+        public DeliveryNoteFile()
         {
             supplier = new Supplier();
             header = new Header();
             positions = new List<Position>();
-            vat = new VAT();
+            vat = new VATTable();
         }
     }
 }

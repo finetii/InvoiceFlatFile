@@ -11,12 +11,19 @@ namespace ReadFlatFiles
     {
         static void Main(string[] args)
         {
-            string path = @"C:\Users\fina.meranzova\Desktop\invoice-2051510-1003319729.txt";
+            string path = @"D:\Documents\GitHub\InvoiceFlatFile\ConsoleApp1\ConsoleApp1\bin\Debug\invoice-7001988-3002296364.txt";
+            if (args != null && args.Length != 0)
+            {
+                path = args[0];                
+                Console.WriteLine(path);
+            }            
+            
             var Invoice = ReadInvoiceFlatFile.ReadFile(path);
             foreach (var position in Invoice.positions)
             {
                 Console.WriteLine(position.ToString());
             }
+            Console.ReadLine();
         }
         
 

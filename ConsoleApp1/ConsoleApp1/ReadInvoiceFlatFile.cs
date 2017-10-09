@@ -9,9 +9,9 @@ namespace ReadFlatFiles
 {
     static class ReadInvoiceFlatFile
     {
-        public static InvoiceInfo ReadFile(string filePath)
+        public static DeliveryNoteFile ReadFile(string filePath)
         {
-            var Invoice = new InvoiceInfo();
+            var Invoice = new DeliveryNoteFile();
             string line = null;
 
             StreamReader file = new StreamReader(filePath);
@@ -26,28 +26,27 @@ namespace ReadFlatFiles
                 {
                     addToLastPosition(Invoice, line, 1);
                 }
-
             }
             return Invoice;
         }
 
-        private static void addToLastPosition(InvoiceInfo invoice, string line, int posLine)
+        private static void addToLastPosition(DeliveryNoteFile invoice, string line, int posLine)
         {
             Position pos = invoice.positions.Last();
             if (posLine == 1)
             {
                 string delNote = line.Substring(pos.DeliveryQty.startPosition, pos.DeliveryQty.length);
-                if (isDigit(delNote))
+                if (isDigit(delNote.Trim()))
                 {
                     pos.DeliveryQty.Value = int.Parse(delNote);
                 }
-            }
-            
+            }            
         }
 
-        private static void newPosition(InvoiceInfo invoice, Position pos, string line)
+        private static void newPosition(DeliveryNoteFile invoice, Position pos, string line)
         {
             string articleNo = line.Substring(pos.ArticleNo.startPosition, pos.ArticleNo.length);
+            int i = Properties.Settings.Default.PZNStart;
             string articleName = line.Substring(pos.ArticleName.startPosition, pos.ArticleName.length);
             if (isDigit(articleNo))
                 pos.ArticleNo.Value = int.Parse(articleNo);
@@ -63,6 +62,5 @@ namespace ReadFlatFiles
             }
             return false;
         }
-
     }
 }
